@@ -91,3 +91,5 @@ storage.rules           -> aturan keamanan Storage
 - Rate limiting di endpoint publik (`/api/raw/:id`, `/api/scripts`) misal via Vercel Edge Config / Upstash Redis (ada free tier)
 - Halaman edit skrip untuk author (push versi baru lewat UI, bukan hanya lewat API)
 - Discord OAuth (perlu Firebase custom auth provider atau NextAuth terpisah)
+# lyhubscript
+# lyhubscript
