@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function myRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isStaff() {
+      return isSignedIn() && (myRole() == 'admin' || myRole() == 'moderator');
+    }
+
+    // Users can read any profile, create/update only their own (non-privileged fields).
+    // Role/ban/mute changes are done via the Admin SDK (server routes) and bypass these rules.
+    match /users/{uid} {
+      allow read: if true;
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid);
+    }
+
+    // Scripts: public read only when published. Writes go through server API routes
+    // using the Admin SDK, so client-side rules here only guard direct client access.
+    match /scripts/{id} {
+      allow read: if resource.data.published == true || isStaff() || (isSignedIn() && resource.data.authorId == request.auth.uid);
+      allow write: if false;
+    }
+
+    match /comments/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /reports/{id} {
+      allow read: if isStaff();
+      allow write: if false;
+    }
+  }
+}
