@@ -5,6 +5,7 @@ import { slugify } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import type { ScriptDoc } from "@/lib/types";
 
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const q = (searchParams.get("q") || "").toLowerCase();
@@ -55,9 +56,11 @@ export async function POST(req: NextRequest) {
   }
 
   const id = nanoid(8);
+  const rawToken = nanoid(32);
   const now = Date.now();
   const doc: ScriptDoc = {
     id,
+    rawToken,
     title,
     description: description || "",
     game,

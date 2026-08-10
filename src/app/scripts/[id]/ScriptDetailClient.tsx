@@ -17,9 +17,10 @@ export default function ScriptDetailClient({ script }: { script: ScriptDoc }) {
   const [activeCode, setActiveCode] = useState(script.code);
   const myVote = user ? script.voters?.[user.uid] : undefined;
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || (typeof window !== "undefined" ? window.location.origin : "");
-  const rawUrl = `${siteUrl}/api/raw/${script.id}`;
+  const siteUrl = (
+    process.env.NEXT_PUBLIC_SITE_URL || (typeof window !== "undefined" ? window.location.origin : "")
+  ).replace(/\/+$/, "");
+  const rawUrl = `${siteUrl}/api/raw/${script.rawToken || script.id}`;
 
   async function trackCopy() {
     fetch(`/api/scripts/${script.id}`, { method: "PATCH" }).catch(() => {});

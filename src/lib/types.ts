@@ -11,6 +11,7 @@ export interface ScriptVersion {
 
 export interface ScriptDoc {
   id: string;
+  rawToken: string;
   title: string;
   description: string;
   game: string;

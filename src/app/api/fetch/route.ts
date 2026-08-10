@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
       game: s.game,
       status: s.status,
       access: s.access,
-      rawUrl: `${process.env.NEXT_PUBLIC_SITE_URL || ""}/api/raw/${s.id}`,
+      rawUrl: `${(process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/+$/, "")}/api/raw/${s.rawToken || s.id}`,
     }));
 
     return NextResponse.json({ scripts: result });
