@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { adminDb } from "@/lib/firebaseAdmin";
 import type { ScriptDoc } from "@/lib/types";
 import ScriptCard from "@/components/ScriptCard";
