@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { adminDb } from "@/lib/firebaseAdmin";
 import { notFound } from "next/navigation";
 import type { ScriptDoc, UserProfile } from "@/lib/types";
