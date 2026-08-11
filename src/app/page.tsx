@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { adminDb } from "@/lib/firebaseAdmin";
 import type { ScriptDoc } from "@/lib/types";
