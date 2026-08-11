@@ -14,7 +14,8 @@ async function getStats() {
     const trending = [...scripts].sort((a, b) => b.upvotes - a.upvotes).slice(0, 6);
     const latest = [...scripts].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6);
     return { total: scripts.length, trending, latest };
-  } catch {
+  } catch (err) {
+    console.error("HOME STATS ERROR:", err);
     return { total: 0, trending: [] as ScriptDoc[], latest: [] as ScriptDoc[] };
   }
 }
